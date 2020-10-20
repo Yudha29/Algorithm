@@ -1,8 +1,3 @@
-/*
- * Hai Tomato
- * Hai Tomato
-*/
-
 #include <iostream>
 #include <conio.h>
 
@@ -11,7 +6,6 @@ using namespace std;
 /*
  * Fungsi untuk membuat array
  * keyword new digunakan untuk melakukan alokasi memory secara dinamis pada saat run time
- * pertanyaan tentang alokasi memory dinamis boleh lu tanyain saat vidcon agar kelihatan lebih aktif di mata mis Chyquita
  *
  * parameter:
  * row:int - jumlah baris matrix yang mau dibuat
