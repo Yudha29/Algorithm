@@ -1,0 +1,93 @@
+ALGORITA PENJUMLAHAN MATRIKS
+{Algoritma untuk menjumlahkan dua buah matriks ordo 3*3}
+
+DEKARASI
+const row = 3
+const col = 3
+
+type LarikCol: array[1..col] of integer
+type Matriks: array[1..row] of LarikCol
+
+matriksA: Matriks
+matriksB: Matriks
+hasil: Matriks
+
+PROCEDURE tambahMatriks(input matriksA: Matriks, input matriksB: Matriks, output hasil: Matriks)
+PROCEDURE printMatriks(input matriks: Matriks, input label: string)
+PROCEDURE isiMatriks(output matriks: Matriks, input label: string)
+
+DESKRIPSI
+WRITE("Program penjumlahan matriks")
+
+isiMatriks(matriksA, "A")
+isiMatriks(matriksB, "B")
+
+printMatriks(matriksA, "A")
+printMatriks(matriksB, "B")
+
+tambahMatriks(matriksA, matriksB, hasil)
+
+printMatriks(hasil, "Hasil")
+
+
+
+PROCEDURE tambahMatriks(input matriksA: Matriks, input matriksB: Matriks, output hasil: Matriks)
+{prosedur untuk menjumlahkan matriks}
+
+{Kondisi awal: hasil berisi matriks kosong}
+{Kondisi akhir: hasil berisi penjumlahan matriks A dan B}
+
+DEKLARASI
+i: integer
+j: integer
+
+DESKRIPSI
+FOR i <- 0 to row DO
+	FOR j <- 0 to col DO
+		hasil[i][j] = matriksA[i][j] + matriksB[i][j];
+		j++
+	ENDFOR
+	i++
+ENDFOR
+
+
+
+PROCEDURE printMatriks(input matriks: Matriks, input label: string)
+{prosedur untuk memprint matriks}
+
+DEKLARASI
+i: integer
+j: integer
+
+DESKRIPSI
+FOR i <- 0 to row DO
+	FOR j <- 0 to col DO
+		WRITE(matriks[i][j])
+		j++
+	ENDFOR
+	i++
+ENDFOR
+
+
+
+PROCEDURE isiMatriks(output matriks: Matriks, input label: string)
+{prosedur untuk mengisi matriks}
+
+{Kondisi awal: matriks berisi data kosong}
+{Kondisi akhir: matriks berisi data matriks yang di input user}
+
+DEKLARASI
+i: integer
+j: integer
+
+DESKRIPSI
+FOR i <- 0 to row DO
+	FOR j <- 0 to col DO
+		READ(matriks[i][j])
+		j++
+	ENDFOR
+	i++
+ENDFOR
+
+
+

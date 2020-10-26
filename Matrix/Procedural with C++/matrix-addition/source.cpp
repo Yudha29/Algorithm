@@ -1,6 +1,5 @@
 /*
  * Hai Tomato
- * Hai Tomato
 */
 
 #include <iostream>
@@ -8,42 +7,22 @@
 
 using namespace std;
 
-/*
- * Fungsi untuk membuat array
- * keyword new digunakan untuk melakukan alokasi memory secara dinamis pada saat run time
- * pertanyaan tentang alokasi memory dinamis boleh lu tanyain saat vidcon agar kelihatan lebih aktif di mata mis Chyquita
- *
- * parameter:
- * row:int - jumlah baris matrix yang mau dibuat
- * col:int - jumlah kolom matrix yang mau dibuat
-*/
-int ** constructMatrix(int row, int col) {
-	//buat variabel untuk menampung data matrix 2 dimensi
-	int ** matrix;	
-	
-	//alokasikan memory untuk membuat array dimensi pertama
-	matrix = new int*[row];
-	
-	//lakukan looping terhadap semua elemen array
-	for (int i=0; i<col; i++)
-		//alokasikan memory untuk membuat array di dalam array
-		matrix[i] = new int[col];
-		
-	//keluarkan array yang telah di buat
-	return matrix;
-}
+const int row = 3;
+const int col = 3;
+
+typedef int LarikCol[3];
+typedef LarikCol Matriks[3];
 
 /*
- * Fungsi untuk mengisi matrix
+ * Fungsi untuk mengisi matriks
  *
  * parameter:
- * matrix: **int - matrix yang mau di input
- * row:int - jumlah baris matrix yang mau dibuat
- * col:int - jumlah kolom matrix yang mau dibuat
+ * matriks: Matriks - matriks yang mau di input
+ * label: string - Label dari matriks yang di input contoh: A, B
 */
-void fillMatrix(int **matrix, int row, int col, string label) {
+void isiMatriks(Matriks matriks, string label) {
 	//output heading
-	cout << "\nInput matrix " << label << "\n";
+	cout << "\nIsi matriks " << label << "\n";
 	
 	//lakukan loop terhadap baris
 	for (int i=0; i<row; i++) {
@@ -51,50 +30,41 @@ void fillMatrix(int **matrix, int row, int col, string label) {
 		for (int j=0; j<col; j++) {
 			//isi nilai elemen matriks pada baris ke i dan kolom ke j
 			cout << "A[" << i << "][" << j << "] = ";
-			cin >> matrix[i][j];
+			cin >> matriks[i][j];
 		}
 	}
 }
 
 /*
- * Fungsi untuk menjumlahkan matrix
+ * Fungsi untuk menjumlahkan matriks
  *
  * parameter:
- * matrixA: **int - Matrix pertama
- * matrixA: **int - Matrix kedua
- * row:int - jumlah baris matrix yang mau dibuat
- * col:int - jumlah kolom matrix yang mau dibuat
+ * matriksA: Matriks - Matriks pertama
+ * matriksA: Matriks - Matriks kedua
+ * hasil: Matriks - Matriks yang menyimpan hasil
 */
-int ** addMatrix(int ** matrixA, int ** matrixB, int row, int col) {
-	//buat matrix baru untuk menampung hasil
-	int ** result = constructMatrix(row, col);
-	
+void tambahMatriks(Matriks matriksA, Matriks matriksB, Matriks hasil) {	 
 	//lakukan loop baris
 	for (int i=0; i<row; i++) {
 		//lakukan loop kolom
 		for (int j=0; j<col; j++) {
 			//set elemen pada baris ke i dan kolom ke j menjadi hasil jumlah antara matrik A dan B
 			//pada kolom dan baris yang sama
-			result[i][j] = matrixA[i][j] + matrixB[i][j];
+			hasil[i][j] = matriksA[i][j] + matriksB[i][j];
 		}
 	}
-	
-	//keluarkan matriks yang menyimpan hasil penjumlahan
-	return result;
 }
 
 /*
- * Fungsi untuk menampilkan matrix
+ * Fungsi untuk menampilkan matriks
  *
  * parameter:
- * matrix: **int - Matrix yang mau di print
- * label: **int - label(nama dari matriksnya contoh: A, B, Hasil)
- * row:int - jumlah baris matrix yang mau dibuat
- * col:int - jumlah kolom matrix yang mau dibuat
+ * matriks: Matriks - matriks yang mau di print
+ * label: string - label(nama dari matriksnya contoh: A, B, Hasil)
 */
-void printMatrix(int ** matrix, int row, int col, string label) {
+void printMatriks(Matriks matriks, string label) {
 	//print heading
-	cout << "\nMatrix " << label << '\n';
+	cout << "\nMatriks " << label << '\n';
 	
 	//lakukan loop baris
 	for (int i=0; i<row; i++) {
@@ -102,7 +72,7 @@ void printMatrix(int ** matrix, int row, int col, string label) {
 		for (int j=0; j<col; j++) {
 			//print elemen pada baris ke i dan kolom ke j
 			//setelah itu beri tab agar ada jarak antar elemen
-			cout << matrix[i][j] << '\t';
+			cout << matriks[i][j] << '\t';
 		}
 		//berikan enter ketika satu baris matrik telah di print
 		cout << '\n';
@@ -110,38 +80,34 @@ void printMatrix(int ** matrix, int row, int col, string label) {
 }
 
 int main() {
-	//variabel untuk menampung jumlah kolom dan baris
-	int row = 0, col = 0;
+	cout << "Program Penjumlahan Matriks \n";
 	
-	cout << "Program Penjumlahan Matrix \n";
+	//buat matriks A dan B
+	Matriks matriksA;
+	Matriks matriksB;
 	
-	//input baris dan kolom
-	cout << "Input ordo \n";
-	cout << "Jumlah baris : ";
-	cin >> row;
+	//isi matriks A dan B
+	isiMatriks(matriksA, "A");
+	isiMatriks(matriksB, "B");
 	
-	cout << "Jumlah kolom : ";
-	cin >> col;
+	//Tampilkan isi matriks A dan B
+	printMatriks(matriksA, "A");
+	printMatriks(matriksB, "B");
 	
-	//buat matrix A dan B
-	int ** matrixA = constructMatrix(row, col);
-	int ** matrixB = constructMatrix(row, col);
+	//buat matriks untuk menyimpan hasil jumlah
+	Matriks hasil;
 	
-	//isi matrix A dan B
-	fillMatrix(matrixA, row, col, "A");
-	fillMatrix(matrixB, row, col, "B");
+	//Jumlahkan matriks A dan B dan simpan hasil jumlahnya pada matriks hasil
+	tambahMatriks(matriksA, matriksB, hasil);
 	
-	//Tampilkan isi matrix A dan B
-	printMatrix(matrixA, row, col, "A");
-	printMatrix(matrixB, row, col, "B");
-	
-	//Jumlahkan matrix A dan B
-	int ** result = addMatrix(matrixA, matrixB, row, col);
-	
-	//print matrix hasil penjumlahan A dan B
-	printMatrix(result, row, col, "Hasil");
+	//print matriks hasil
+	printMatriks(hasil, "Hasil");
 	
 	getch();
 	
 	return 0;
 }
+
+/*
+ * Semangat yaa :")
+*/
