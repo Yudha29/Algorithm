@@ -1,0 +1,103 @@
+Program Menghitung Nilai Mahasiswa
+{Program ini digunakan untuk menghitung nilai nilai mahasiswa}
+
+DEKLARASI
+type himpunannilai: array [0..4] of int
+type himpunantext: array [0..4] of string
+nama: himpunantext
+kelas: himpunantext
+tm: himpunannilai
+uts: himpunannilai
+uas: himpunannilai
+PROCEDURE inputSiswa(output nama: himpunantext, output kelas: himpunantext, output tm: himpunannilai, output uts: himpunannilai, output uas: himpunannilai)
+PROCEDURE printSemuaSiswa(input nama: himpunantext, input kelas: himpunantext, input tm: himpunannilai, input uts: himpunannilai, input uas: himpunannilai)
+
+DESKRIPSI
+inputSiswa(nama, kelas, tm, uts, uas)
+printSemuaSiswa(nama, kelas, tm, uts, uas)
+
+
+
+
+PROCEDURE inputSiswa(output nama: himpunantext, output kelas: himpunantext, output tm: himpunannilai,output uts: himpunannilai,output uas: himpunannilai)
+{Prosedur untuk menginput data dan nilai siswa ke dalam array}
+
+DEKLARASI
+i : int
+
+DESKRIPSI
+i <- 0
+FOR i <- 0 to 4 DO
+	READ(nama[i], kelas[i], tm[i], uts[i], uas[i])
+ENDFOR
+
+
+
+
+PROCEDURE printSemuaSiswa(input nama: himpunantext, input kelas: himpunantext, input tm: himpunannilai, input uts: himpunannilai, input uas: himpunannilai)
+{Prosedur untuk memprint seluruh data dan nilai siswa}
+
+DEKLARASI
+i: int
+PROCEDURE printSiswa(input nama: string, input kelas: string, input tm: int, input uts: int, input uas: int)
+
+DESKRIPSI
+WRITE("nama\tkelas\tTM\tUTS\tUAS\tNilai Akhir\tGrade\n")
+i <- 0
+FOR i <- 0 to 4 DO
+	printSiswa(nama[i], kelas[i], tm[i], uts[i], uas[i])
+ENDFOR
+
+
+
+
+PROCEDURE printSiswa(input nama: string, input kelas: string, input tm: int, input uts: int, input uas: int)
+{Prosedur untuk memprint data dan nilai siswa}
+
+DEKLARASI
+grade: char
+nilaiakhir: int
+FUNCTION hitungNilai(tm: int, uts: int, uas: int) -> int
+FUNCTION hitungGrade(nilaiakhir: int) -> char
+
+DESKRIPSI
+nilaiakhir <- hitungNilai(tm, uts, uas)
+grade <- hitungGrade(nilaiakhir)
+WRITE(nama, kelas, tm, uts, uas, nilaiakhir, grade)
+
+
+
+
+FUNCTION hitungNilai(tm: int, uts: int, uas: int) -> int
+{Fungsi untuk menghitung nilai berdasarkan uts, uas dan tm}
+
+DEKLARASI
+nilaiakhir: int
+
+DESKRIPSI
+nilaiakhir <- (tm + uts + uas)/3
+RETURN nilaiakhir
+
+
+
+FUNCTION hitungGrade(nilaiakhir: int) -> char
+{Fungsi untuk menentukan grade berdasarkan nilai akhir}
+
+DEKLARASI
+grade: char
+
+DESKRIPSI
+IF nilaiakhir > 80 THEN
+	grade <- 'A'
+ELSE
+	IF nilaiakhir > 60 THEN
+		grade <- 'B'
+	ELSE 
+		IF nilaiakhir > 40 THEN
+			grade <- 'C'
+		ELSE 
+			grade <- 'D'	
+		ENDIF
+	ENDIF
+ENDIF
+RETURN grade
